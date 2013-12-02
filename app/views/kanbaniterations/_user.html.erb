@@ -1,0 +1,9 @@
+<div style="float:left; padding:10px;width: <%= staffed_column_width(@kanban, :active) %>%">
+  <div id="staffed-requests-header" style="width: 96%">
+    <%= content_tag(:div, content_tag(:h3,user.name)) %>
+  </div>
+ 
+  <div id="active-<%= h user.id -%>" class="staffed-column pane active user-<%= h user.id -%>" style="width: 96%">
+    <%= render(:partial => 'active', :locals => {:user => user}) %>
+  </div>
+</div>

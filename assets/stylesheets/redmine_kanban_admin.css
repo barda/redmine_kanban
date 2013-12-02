@@ -1,0 +1,6 @@
+#admin-menu a.kanban-board-admin { background-image: url("../images/kanban-board-admin.png") }
+
+#resource_pane_incoming_issue_status, #resource_pane_backlog_issue_status, #resource_pane_quick_issue_status, #resource_pane_selected_issue_status, #resource_pane_active_issue_status, #resource_pane_testing_issue_status, #resource_pane_finished_issue_status, #resource_pane_canceled_issue_status
+  { width: auto; }
+#resource_pane_incoming_size, #resource_pane_backlog_size, #resource_pane_quick_size, #resource_pane_selected_size, #resource_pane_active_size, #resource_pane_testing_size, #resource_pane_finished_size, #resource_pane_canceled_size
+  { width: 3em; text-align: right; }

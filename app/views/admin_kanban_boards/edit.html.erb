@@ -1,0 +1,6 @@
+<h2><%= link_to l(:label_kanban_board_plural), admin_kanban_boards_path %> &#187; <%=h @resource.to_label %></h2>
+
+<%= labelled_form_for :resource, @resource, { :url => admin_kanban_board_url, :html => { :method => :put } } do |f| %>
+  <%= render :partial => 'form', :locals => { :f => f } %>
+  <%= submit_tag l(:button_submit) %>
+<% end %>

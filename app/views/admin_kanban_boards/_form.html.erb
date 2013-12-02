@@ -1,0 +1,60 @@
+<%= error_messages_for 'resource' %>
+
+<div class="box tabular">
+  <p><%= f.text_field :name, :required => true, :size => 60 %></p>
+</div>
+
+<div class="box tabular">
+  <fieldset id="resource_general_settings">
+    <legend><%= l(:kanban_text_general_settings) %></legend>
+    <p>
+      <%= staff_role_select(f, @resource) %>
+    </p>
+  </fieldset>
+  <fieldset id="resource_pane_values">
+    <legend><%= l(:kanban_text_pane_settings) %></legend>
+    <%= content_tag(:p, l(:kanban_text_pane_settings_description)) %>
+    <p>
+      <%= pane_issue_status_select_for_open_issues(f, @resource, :incoming) %>
+      <%= f.text_field :pane_incoming_size, :no_label => true %>
+      <span><%= l(:pane_incoming_size_um) %></span>
+    </p>
+    <p>
+      <%= pane_issue_status_select_for_open_issues(f, @resource, :backlog) %>
+      <%= f.text_field :pane_backlog_size, :no_label => true %>
+      <span><%= l(:pane_backlog_size_um) %></span>
+    </p>
+    <p>
+      <%= pane_issue_status_select_for_open_issues(f, @resource, :quick, :required => false) %>
+      <%= f.text_field :pane_quick_size, :no_label => true %>
+      <span><%= l(:pane_quick_size_um) %></span>
+    </p>
+    <p>
+      <%= pane_issue_status_select_for_open_issues(f, @resource, :selected, :required => false) %>
+      <%= f.text_field :pane_selected_size, :no_label => true %>
+      <span><%= l(:pane_selected_size_um) %></span>
+    </p>
+    <p>
+      <%= pane_issue_status_select_for_open_issues(f, @resource, :active) %>
+      <%= f.text_field :pane_active_size, :no_label => true %>
+      <span><%= l(:pane_active_size_um) %></span>
+    </p>
+    <p>
+      <%= pane_issue_status_select_for_open_issues(f, @resource, :testing) %>
+      <%= f.text_field :pane_testing_size, :no_label => true %>
+      <span><%= l(:pane_testing_size_um) %></span>
+    </p>
+    <p>
+      <%= pane_issue_status_select_for_open_issues(f, @resource, :finished) %>
+      <%= f.text_field :pane_finished_size, :no_label => true %>
+      <span><%= l(:pane_finished_size_um) %></span>
+    </p>
+    <p>
+      <%= pane_issue_status_select_for_open_issues(f, @resource, :canceled) %>
+      <%= f.text_field :pane_canceled_size, :no_label => true %>
+      <span><%= l(:pane_canceled_size_um) %></span>
+    </p>
+  </fieldset>
+</div>
+
+<%= javascript_tag "$('#resource_name').focus();" %>

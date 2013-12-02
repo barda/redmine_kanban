@@ -1,0 +1,2 @@
+class KanbaniterationsController < KanbansController
+end

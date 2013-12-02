@@ -1,0 +1,18 @@
+<div class="contextual">
+  <%= l(:label_kanban_board_plural) %>
+</div>
+
+<h2><%=l(:label_kanban_board_plural)%></h2>
+
+<div class="autoscroll">
+  <ol>
+  <% @resources.each do |resource| %>
+    <li>
+      <%= link_to resource.to_label, kanban_path(resource) %>
+      (<%= link_to l(:kanban_iteration_link_label), kanbaniteration_path(resource) %>)
+    </li>
+  <% end %>
+  </ol>
+</div>
+
+<% html_title(l(:label_kanban_board_plural)) -%>

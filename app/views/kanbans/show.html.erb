@@ -1,0 +1,83 @@
+<% html_title l(:kanban_title) %>
+
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag 'redmine_kanban.css', :plugin => "redmine_kanban" %>
+  <%= javascript_include_tag 'jquery-1.3.2.min.js', :plugin => 'redmine_kanban' %>
+  <%= javascript_include_tag 'jquery-ui-1.7.2.custom.min.js', :plugin => 'redmine_kanban' %>
+  <%= javascript_include_tag 'jquery.json-1.3.min.js', :plugin => 'redmine_kanban' %>
+  <%= javascript_include_tag 'jquery.ajax_queue.js', :plugin => 'redmine_kanban' %>
+  <%= javascript_tag("jQuery.noConflict();") %>
+  <% if allowed_to_edit? %>
+    <%= javascript_include_tag 'kanban.js', :plugin => 'redmine_kanban' %>
+    <script type="application/javascript">jQuery('document').ready(function () { RedmineKanban.Board(<%=@board.id%>); } )</script>
+  <% end %>
+<% end %>
+
+<div class="flash error" style="display:none"></div>
+
+<h2><%=h @board.to_label %></h2>
+
+<script>
+  setTimeout( "window.location.reload(false)", 120*1000 );
+</script>
+
+<div class="contextual">
+  <% if User.current.allowed_to?(:edit_kanban, nil, :global => true) %>
+    <%= link_to(l(:kanban_text_sync), sync_kanban_url, :method => :put, :class => 'icon icon-reload') %>
+  <% end %>
+  <%= link_to_function(l(:kanban_text_color_help), "$('#color-help').slideToggle();", :class => 'icon icon-info') %>
+</div>
+
+<p class="general-help"><%= l(:kanban_text_general_help) %></p>
+
+<div id="color-help" style="display:none;">
+  <%= content_tag(:h3, l(:kanban_text_color_help)) %>
+  <ul>
+    <li class="normal-color"><%=raw l(:kanban_text_normal_color) %></li>
+    <li class="assigned-to-me-color"><%=raw l(:kanban_text_assigned_to_me_color) %></li>
+    <li class="behind-schedule-color"><%=raw l(:kanban_text_behind_schedule_color) %></li>
+    <li class="overdue-color"><%=raw l(:kanban_text_overdue_color) %></li>
+    <li class="over-wip-color"><%=raw l(:kanban_text_over_wip_color) %></li>
+  </ul>
+</div>
+
+<div id="kanban">
+  <% if @kanban.incoming_pane.configured? || @kanban.backlog_pane.configured? %>
+    <div id="unstaffed-requests" class="column" style="width: <%= column_width(@kanban, :unstaffed) %>%">
+
+      <% if @kanban.incoming_pane.configured? %>
+        <div id="incoming" class="pane">
+          <%= render :partial => 'incoming' %>
+        </div>
+      <% end %>
+
+      <% if @kanban.backlog_pane.configured? %>
+        <div id="backlog" class="pane">
+          <%= render :partial => 'backlog' %>
+        </div>
+      <% end %>
+
+    </div>
+  <% end %>
+
+  <% if @kanban.quick_pane.configured? || @kanban.selected_pane.configured? %>
+    <div id="selected-requests" class="column" style="width: <%= column_width(@kanban, :selected) %>%">
+      <% if @kanban.quick_pane.configured? %>
+        <div id="quick-tasks" class="pane">
+          <%= render :partial => 'quick' %>
+        </div>
+      <% end %>
+
+      <% if @kanban.selected_pane.configured? %>
+        <div id="selected-tasks"class="pane">
+          <%= render :partial => 'selected' %>
+        </div>
+      <% end %>
+
+    </div>
+  <% end %>
+
+  <div id="staffed-requests" class="column" style="width: <%= column_width(@kanban, :staffed) %>%">
+    <%= render :partial => 'user', :collection => @kanban.users %>
+  </div>
+</div>
